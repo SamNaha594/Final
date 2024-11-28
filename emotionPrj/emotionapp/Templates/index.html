@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <!-- <h1>Real-Time Emotion Detection</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="audio" id="audioFile" accept="audio/*">
+        <button type="submit">Upload and Detect</button>
+    </form>
+    <div id="result"></div> -->
+
+
+
+
+    <div class="container">
+        <h1>Emotion Detection</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="audio_file">Upload Audio File:</label>
+            <input type="file" id="audio_file" name="audio_file" accept=".wav" required>
+            <button type="submit">Analyze</button>
+        </form>
+        {% if predictions  %}
+            <div class="results">
+                <h2>Results:</h2>
+                <p><strong>Emotion:</strong> {{ predictions.emotion }}</p>
+                <p><strong>Vocal Channel:</strong> {{ predictions.vocal_channel }}</p>
+                <p><strong>Intensity:</strong> {{ predictions.intensity }}</p>
+                <p><strong>Gender:</strong> {{ predictions.gender }}</p>
+            </div>
+        {% endif %}
+    </div>
+
+
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>
